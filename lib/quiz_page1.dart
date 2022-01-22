@@ -43,19 +43,16 @@ class _QuizApp1State extends State<QuizApp1> {
             onPressed: () {
               setState(() {
 
-                if (questionNumber == 4) {
-                    questionNumber=0;}
-                else{
+
                 ans= queList.questionBank[questionNumber].answers;
-                questionNumber++;
-                if(ans == true){
+                if(ans == true && questionNumber<=3){
                   scoreKeeper.add(
                     const Icon(
                       Icons.check_circle,
                       color: Colors.green,
                     ),
                   );
-                }else{
+                }else if(questionNumber<=3){
                   scoreKeeper.add(
                     const Icon(
                       Icons.cancel,
@@ -63,8 +60,11 @@ class _QuizApp1State extends State<QuizApp1> {
                     ),
                   );
                 }
-
+                if(questionNumber<=2){
+                  questionNumber++;
                 }
+
+
               });
             },
             child: const Text("True"),
