@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/question_lists.dart';
+
 
 class QuizApp1 extends StatefulWidget {
   const QuizApp1({Key? key}) : super(key: key);
@@ -8,14 +10,10 @@ class QuizApp1 extends StatefulWidget {
 }
 
 class _QuizApp1State extends State<QuizApp1> {
+
+
   List<Widget> scoreKeeper = [];
-  List<String> questions = [
-    "shiva is always with you",
-    "he will not always help you",
-    "you're a noob",
-    "i am pro",
-  ];
-  List<bool> answers = [true, false, false, true];
+  QuestionLists queList = QuestionLists();
   late int questionNumber = 0;
    late bool ans ;
   @override
@@ -27,7 +25,7 @@ class _QuizApp1State extends State<QuizApp1> {
           flex: 12,
           child: Center(
             child: Text(
-              questions[questionNumber],
+              queList.questionBank[questionNumber].questions,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -44,7 +42,12 @@ class _QuizApp1State extends State<QuizApp1> {
             ),
             onPressed: () {
               setState(() {
-                ans=answers[questionNumber];
+
+                if (questionNumber == 4) {
+                    questionNumber=0;}
+                else{
+                ans= queList.questionBank[questionNumber].answers;
+                questionNumber++;
                 if(ans == true){
                   scoreKeeper.add(
                     const Icon(
@@ -60,8 +63,7 @@ class _QuizApp1State extends State<QuizApp1> {
                     ),
                   );
                 }
-                if (questionNumber <= 2) {
-                  questionNumber++;
+
                 }
               });
             },
@@ -79,7 +81,7 @@ class _QuizApp1State extends State<QuizApp1> {
             ),
             onPressed: () {
               setState(() {
-                ans=answers[questionNumber];
+                ans=queList.questionBank[questionNumber].answers;
                 if(ans == false){
                   scoreKeeper.add(
                     const Icon(
